@@ -147,3 +147,4 @@ for i in range(1):
 
 # 여러 개의 저장파일 통합하기
 mergefile(word)
+print("test")
