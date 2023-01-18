@@ -7,12 +7,12 @@ from collections import Counter
 from wordcloud import WordCloud 
 import sys
 
-# 예제 5-44 크롤링 데이터 불러오기
+# 크롤링 데이터 불러오기
 raw_total = pd.read_excel('./files/크롤링 데이터/크롤링통합파일.xlsx')
 raw_total.head()
 
-# 예제 5-48 여러개의 단어 선택/추출/저장하기
-select_word_list = ['커피','맛집','카페','포토존','핫플']
+# 여러개의 단어 선택/추출/저장하기
+select_word_list = ['여행','해변','카페','일상','핫플']
 
 for select_word in select_word_list:
     check_list = []
@@ -34,16 +34,17 @@ if sys.platform in ["win32", "win64"]:
 rc('font',family=font_name)
 
 # 여행지 추천 막대 그래프
-raw_travel = pd.read_excel('./files/태그 데이터/태그데이터_카페.xlsx')
-travel_counts_selected = Counter(raw_travel['place'])
+raw_travel = pd.read_excel('./files/태그 데이터/태그데이터_여행.xlsx')
+travel_counts_selected = raw_travel['place']
 
-STOPWORDS = ['제주','제주도','jeju','제주도 제주', 'Jeju Island, Korea'] # 데이터 정제하기
+STOPWORDS = ['제주','제주도','jeju','제주도 제주', 'Jeju Island, Korea','환상의 섬 Jeju Island','Jeju-do','제주도 Jeju Island'] # 데이터 정제하기
 travel_data = []
 for place in travel_counts_selected:
     if place not in STOPWORDS:
         travel_data.append(place)
         
 travel_counts = Counter(travel_data)
+#print(travel_counts)
 location_counts_df = pd.DataFrame(travel_counts.most_common(10))
 location_counts_df.columns = ['place', 'counts']
 
@@ -56,17 +57,19 @@ plt.savefig('./files/추천/트랜디한 여행지 추천 막대차트.png')
 
 
 
-# 맛집 추천 막대 그래프
-raw_travel = pd.read_excel('./files/태그 데이터/태그데이터_맛집.xlsx')
-travel_counts_selected = Counter(raw_travel['place'])
 
-STOPWORDS = ['제주','제주도','jeju','제주도 제주', 'Jeju Island, Korea'] # 데이터 정제하기
+# 맛집 추천 막대 그래프
+raw_travel = pd.read_excel('./files/태그 데이터/태그데이터_일상.xlsx')
+travel_counts_selected = raw_travel['place']
+
+STOPWORDS = ['제주','제주도','jeju','제주도 제주', 'Jeju Island, Korea','환상의 섬 Jeju Island','Jeju-do','제주도 Jeju Island', '제주어린왕자감귤밭', '휴애리 자연생활공원'] # 데이터 정제하기
 travel_data = []
 for place in travel_counts_selected:
     if place not in STOPWORDS:
         travel_data.append(place)
         
 travel_counts = Counter(travel_data)
+#print(travel_counts)
 location_counts_df = pd.DataFrame(travel_counts.most_common(10))
 location_counts_df.columns = ['place', 'counts']
 

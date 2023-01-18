@@ -8,7 +8,7 @@ from collections import Counter
 
 
 # 크롤링 결과 중 해시태그 데이터 불러오기
-raw_total = pd.read_excel('C:/Users/rkdrj/OneDrive/바탕 화면/OSSP/files/크롤링 데이터/크롤링통합파일.xlsx',engine='openpyxl')
+raw_total = pd.read_excel('./files/크롤링 데이터/크롤링통합파일.xlsx',engine='openpyxl')
 raw_total['tags'] [:3]
 
 # 해시태그 통합 저장하기
@@ -48,7 +48,7 @@ tag_counts_df.columns = ['tags', 'counts']
 plt.figure(figsize=(10,8)) 
 sns.barplot(x='counts', y='tags', data = tag_counts_df)
 font_path = "c:/Windows/Fonts/malgun.ttf"
-plt.savefig('C:/Users/rkdrj/OneDrive/바탕 화면/OSSP/files/태그막대차트.png')
+plt.savefig('./files/태그막대차트.png')
 
 # 워드클라우드 만들기
 wordcloud=WordCloud(font_path= font_path, 
@@ -61,5 +61,5 @@ wordcloud=WordCloud(font_path= font_path,
 plt.figure(figsize=(15,10))
 plt.imshow(wordcloud)
 plt.axis('off')
-plt.savefig('C:/Users/rkdrj/OneDrive/바탕 화면/OSSP/files/태그워드클라우드.png')
+plt.savefig('./files/태그워드클라우드.png')
 

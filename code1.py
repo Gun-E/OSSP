@@ -34,7 +34,7 @@ def login(driver):
         input_pw.submit()
 
         time.sleep(5)
-        driver.find_element(By.CSS_SELECTOR, 'button._acan._aiit._acao._aija._acas._aj1-').click() # 계정 정보 저장 넘어가기
+        driver.find_element(By.CSS_SELECTOR, 'button._acan._acao._acas._aj1-').click() # 계정 정보 저장 넘어가기
         driver.find_element(By.CSS_SELECTOR, 'button._a9--._a9_1').click() # 알림 설정 넘어가기
 
         print('로그인 성공')
@@ -89,7 +89,7 @@ def crawling(driver, url):
     select_first(driver)
     
     # 게시글 수집하기
-    target = 300      # 크롤링할 게시글 수
+    target = 1000      # 크롤링할 게시글 수
     for i in range(target):
         # 게시글 수집에 오류 발생시(네트워크 문제 등의 이유로)  2초 대기 후, 다음 게시글로 넘어가도록 try, except 구문 활용
         try:
@@ -106,13 +106,13 @@ def crawling(driver, url):
 def savefile(word,results):
     results_df = pd.DataFrame(results)
     results_df.columns = ['content','data','like','place','tags']
-    results_df.to_excel(f'C:/Users/rkdrj/OneDrive/바탕 화면/OSSP/files/크롤링 데이터/{word}.xlsx', index = False)
+    results_df.to_excel(f'./files/크롤링 데이터/{word}.xlsx', index = False)
     print('크롤링 파일 저장 성공')
 # 여러 개의 저장파일 통합하기
 def mergefile(word):
     jeju_insta_df = pd.DataFrame( [ ] )
 
-    folder = 'C:/Users/rkdrj/OneDrive/바탕 화면/OSSP/files/크롤링 데이터/'
+    folder = './files/크롤링 데이터/'
     f_list = [f'{word[0]}.xlsx', f'{word[1]}.xlsx', f'{word[2]}.xlsx', f'{word[3]}.xlsx']
     for fname in f_list:
         fpath = folder + fname
@@ -123,23 +123,23 @@ def mergefile(word):
 
     # 중복 데이터 제거하고 엑셀 파일로 저장하기
     jeju_insta_df.drop_duplicates(subset = [ "content"] , inplace = True)
-    jeju_insta_df.to_excel('C:/Users/rkdrj/OneDrive/바탕 화면/OSSP/files/크롤링 데이터/크롤링통합파일.xlsx', index = False)
+    jeju_insta_df.to_excel('./files/크롤링 데이터/크롤링통합파일.xlsx', index = False)
     print('중복 데이터 제거 성공')
     
 # 메인 인스타그램 크롤링
 
 # 크롬 브라우저 열기
-driver = webdriver.Chrome('C:/Users/rkdrj/OneDrive/바탕 화면/OSSP/files/chromedriver.exe') 
+driver = webdriver.Chrome('./files/chromedriver.exe') 
 
 # 인스타그램 로그인
 login(driver)
 
 #검색어
-word = ["제주핫플", "제주카페", "제주맛집","제주바다"] 
+word = ["제주핫플", "제주카페","제주맛집","제주바다"] 
      
   
 # 크롤링
-for i in range(1):
+for i in range(4):
     url = insta_searching(word[i]) # 인스타그램 검색페이지 URL 만들기
     results = [ ]
     results = crawling(driver, url)
@@ -147,4 +147,3 @@ for i in range(1):
 
 # 여러 개의 저장파일 통합하기
 mergefile(word)
-print("test")

@@ -3,9 +3,12 @@ import pandas as pd
 from tqdm.notebook import tqdm
 import requests
 import time
+import folium
+from folium.plugins import MarkerCluster
+
 
 # 크롤링 데이터 불러오기
-raw_total = pd.read_excel('C:/Users/rkdrj/OneDrive/바탕 화면/OSSP/files/크롤링 데이터/크롤링통합파일.xlsx')
+raw_total = pd.read_excel('./files/크롤링 데이터/크롤링통합파일.xlsx')
 raw_total.head()
 
 # 위치정보 가져오기
@@ -17,7 +20,7 @@ location_counts_df = pd.DataFrame(location_counts)
 location_counts_df.head()
 
 # 위치정보 빈도수 데이터 저장하기
-location_counts_df.to_excel('C:/Users/rkdrj/OneDrive/바탕 화면/OSSP/files/위치 데이터/장소위치정보빈도수.xlsx')
+location_counts_df.to_excel('./files/위치 데이터/장소위치정보빈도수.xlsx')
 
 # 위치정보 종류 확인하기
 locations = list( location_counts.index )
@@ -30,7 +33,7 @@ def find_places(searching):
     url = 'https://dapi.kakao.com/v2/local/search/keyword.json?query={}'.format(searching)
     # ② headers 입력하기
     headers = {
-    "Authorization": "KakaoAK ********"
+    "Authorization": "KakaoAK *******"
     }
     # ③ API 요청&정보 받기
     places = requests.get(url, headers = headers).json()['documents']
@@ -56,12 +59,12 @@ locations_inform
 # 위치정보 저장하기
 locations_inform_df = pd.DataFrame(locations_inform)
 locations_inform_df.columns = ['name_official','경도','위도','인스타위치명']
-locations_inform_df.to_excel('C:/Users/rkdrj/OneDrive/바탕 화면/OSSP/files/위치 데이터/장소의정확한위치정보.xlsx', index=False)
+locations_inform_df.to_excel('./files/위치 데이터/장소의정확한위치정보.xlsx', index=False)
 
 
 # 인스타 게시량 및 위치정보 데이터 불러오기
-location_counts_df = pd.read_excel('C:/Users/rkdrj/OneDrive/바탕 화면/OSSP/files/위치 데이터/장소위치정보빈도수.xlsx', index_col = 0)
-locations_inform_df = pd.read_excel('C:/Users/rkdrj/OneDrive/바탕 화면/OSSP/files/위치 데이터/장소의정확한위치정보.xlsx')
+location_counts_df = pd.read_excel('./files/위치 데이터/장소위치정보빈도수.xlsx', index_col = 0)
+locations_inform_df = pd.read_excel('./files/위치 데이터/장소의정확한위치정보.xlsx')
 
 # 위치 데이터 병합하기
 location_data = pd.merge(locations_inform_df, location_counts_df, 
@@ -73,15 +76,13 @@ location_data.head()
 location_data['name_official'].value_counts()
 
 # 병합한 데이터 저장하기
-location_data.to_excel('C:/Users/rkdrj/OneDrive/바탕 화면/OSSP/files/위치 데이터/위치병합데이터.xlsx')
+location_data.to_excel('./files/위치 데이터/위치병합데이터.xlsx')
 
 # 데이터 불러오기
-location_data = pd.read_excel('C:/Users/rkdrj/OneDrive/바탕 화면/OSSP/files/위치 데이터/위치병합데이터.xlsx')
+location_data = pd.read_excel('./files/위치 데이터/위치병합데이터.xlsx')
 location_data.info()
 
 # 지도 표시하기
-import folium
-
 Mt_Hanla =[33.362500, 126.533694]
 map_jeju = folium.Map(location = Mt_Hanla, zoom_start = 11)
 
@@ -96,11 +97,9 @@ for i in range(len(location_data)):
 map_jeju
 
 # 지도 저장하기
-map_jeju.save('C:/Users/rkdrj/OneDrive/바탕 화면/OSSP/files/위치데이터지도.html') 
+map_jeju.save('./files/위치데이터지도.html') 
 
 # 지도 표시하기(마커 집합)
-
-from folium.plugins import MarkerCluster
 
 locations = []
 names = []
@@ -128,4 +127,4 @@ folium.LayerControl().add_to(map_jeju2)
 map_jeju2
 
 # 지도 저장하기
-map_jeju2.save('C:/Users/rkdrj/OneDrive/바탕 화면/OSSP/files/위치 데이터/장소위치.html') 
+map_jeju2.save('./files/위치 데이터/장소위치.html') 
