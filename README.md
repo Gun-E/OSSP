@@ -15,7 +15,6 @@
         ./files/chromedriver.exe
         ```
     - Enter email & password
-    - 코드 해당 위치에 본인 인스타그램 아이디와 비밀번호 입력
         - code1.py
             ```python
             def login(driver):
@@ -41,13 +40,13 @@
 
             print('로그인 성공')
             ```
+    - 코드 해당 위치에 본인 인스타그램 아이디와 비밀번호 입력
 3. kakao API setting
     - Get API key
         > 1. https://developers.kakao.com/ 접속
         > 2. 로그인 후 개발자 등록, 앱 생성
         > 3. REST API Key 복사
     - Enter REST API Key
-    - 코드 해당 위치에 본인 REST API Key 입력
         - code3.py
             ```python
             def find_places(searching):
@@ -68,6 +67,7 @@
 
                 return data
             ```
+     - 코드 해당 위치에 본인 REST API Key 입력
 ## Order of execution
 1. code1.py
 2. code2.py
