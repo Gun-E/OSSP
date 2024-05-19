@@ -1,4 +1,4 @@
-# OSSP
+# 제주 맛집 트랜드
 
 ## Set up
 1. Install Requirements
