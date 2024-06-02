@@ -1,4 +1,4 @@
-# 제주 맛집 트랜드 시각화
+# 제주 맛집 트랜드 시각화 프로그램
 
 ## Set up
 1. Install Requirements
