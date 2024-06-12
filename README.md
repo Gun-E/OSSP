@@ -1,5 +1,6 @@
 # 제주 카페, 맛집 데이터 분석 트랜드 시각화 프로그램
 
+## 파이썬
 ## Set up
 1. Install Requirements
     ```dotnetcli
